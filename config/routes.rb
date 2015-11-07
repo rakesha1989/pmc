@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'dashboards/index'
+
   root 'projects#index'
 
   resources :profiles
