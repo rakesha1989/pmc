@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
 
+  root 'dashboards#index'
+
   get 'dashboards/index'
 
-  root 'projects#index'
-
   resources :profiles
-  resources :vendors
-  resources :tasks
-  resources :projects
   resources :clients
+  resources :vendors
+  resources :projects
+  resources :tasks
   devise_for :users
   
   # The priority is based upon order of creation: first created -> highest priority.

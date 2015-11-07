@@ -32,7 +32,7 @@
 
 <p>
   <strong>Profile:</strong>
-  <%= @task.profile_id %>
+  <%= link_to @task.profile.fullname, profile_path(@task.profile_id) %>
 </p>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |

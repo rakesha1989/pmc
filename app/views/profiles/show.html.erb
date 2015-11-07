@@ -25,15 +25,19 @@
   <%= @profile.d_o_b %>
 </p>
 
-<p>
-  <strong>Task:</strong>
-  <%= @profile.task_id %>
-</p>
 
 <p>
   <strong>User:</strong>
   <%= @profile.user_id %>
 </p>
+
+<h3>Assigned Tasks</h3>
+
+<ul>
+  <% for task in @profile.tasks %>
+    <li><%= link_to task.name, task_path(task) %></li>
+  <% end %>
+</ul>
 
 <%= link_to 'Edit', edit_profile_path(@profile) %> |
 <%= link_to 'Back', profiles_path %>
