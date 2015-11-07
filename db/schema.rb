@@ -11,7 +11,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151107074849) do
+ActiveRecord::Schema.define(version: 20151107082326) do
+
+  create_table "clients", force: :cascade do |t|
+    t.string   "name"
+    t.string   "company"
+    t.string   "email"
+    t.string   "web"
+    t.string   "phone"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string   "title"
+    t.string   "fullname"
+    t.string   "gender"
+    t.string   "designation"
+    t.date     "d_o_b"
+    t.integer  "task_id"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "location"
+    t.date     "start_date"
+    t.string   "status"
+    t.string   "assigned_to"
+    t.integer  "user_id"
+    t.integer  "client_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "name"
+    t.date     "due_date"
+    t.string   "rating"
+    t.boolean  "is_completed"
+    t.string   "assigned_to"
+    t.integer  "project_id"
+    t.integer  "profile_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -34,5 +82,17 @@ ActiveRecord::Schema.define(version: 20151107074849) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "vendors", force: :cascade do |t|
+    t.string   "name"
+    t.string   "company"
+    t.string   "email"
+    t.string   "web"
+    t.string   "phone"
+    t.boolean  "is_po_released"
+    t.integer  "user_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
 
 end
