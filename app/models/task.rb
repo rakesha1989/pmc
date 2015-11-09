@@ -3,7 +3,8 @@ class Task < ActiveRecord::Base
 belongs_to :project
 belongs_to :profile
 
-	validate :check_due_date
+validate :check_due_date
+validates_presence_of :name, :due_date, :rating, :is_completed, :profile_id
 
 	private
 
