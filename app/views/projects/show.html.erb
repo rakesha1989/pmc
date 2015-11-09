@@ -13,4 +13,59 @@
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
 
+<h3> Add task </h3>
+
+<%= form_for ([@project,@project.tasks.build]) do |f| %>
+
+  <label>Name: </label><br/>
+  <%= f.text_field :name %><br/>
+
+  <label>Due Date: </label><br/>
+  <%= f.date_select :due_date %><br/>
+
+  <label>Is completed? </label><br/>
+  <%= f.check_box :is_completed %><br/>
+
+  <label>Rating: </label><br/>
+  <%= f.select :rating, %w[1 2 3 4 5] %><br/>
+
+  <label>Assigned To: </label><br/>
+  <%= f.collection_select :profile_id, Profile.all, :id, :fullname %><br/>
+
+
+  <%= f.hidden_field :project_id, value: @project.id %>
+  
+  <%= f.submit%>
+<% end %>
+
+<% tasks = @project.tasks %>
+<h3> Total tasks - <%= tasks.size %></h3>
+
+<% over_due_tasks = tasks.where('is_completed = ? AND due_date < ?', false, Date.today) %>
+<h3> Overdue tasks </h3>
+<ul>
+  <% for task in over_due_tasks %>
+  <li><%= task.name %> <small><%= time_ago_in_words(task.due_date) %> ago </small></li>
+  <% end %>
+</ul>
+
+<% incomplete_tasks = tasks.where('is_completed = ? AND due_date >= ?', false, Date.today) %>
+<h3> Incomplete tasks </h3>
+<ul>
+  <% for task in incomplete_tasks %>
+  <li><%= task.name %> <small><%= time_ago_in_words(task.due_date) %> from now </small>
+  <%= link_to "mark as complete", tasks_mark_as_complete_path(task_id: task.id) %></li>
+  <% end %>
+</ul>
+
+<% completed_tasks = tasks.where('is_completed = ?', true) %>
+<h3> Completed tasks </h3>
+<ul>
+  <% for task in completed_tasks %>
+  <li><%= task.name %> <small><%= time_ago_in_words(task.updated_at) %> 
+  <%= task.updated_at < Time.now ? "ago" : "from now" %>
+   </small>
+   <%= link_to "mark as incomplete", tasks_mark_as_incomplete_path(task_id: task.id) %></li>
+  <% end %>
+</ul>
 

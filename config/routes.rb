@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root 'dashboards#index'
 
   get 'dashboards/index'
+  get 'tasks/mark_as_complete'
+  get 'tasks/mark_as_incomplete'
 
   resources :profiles
   resources :clients
