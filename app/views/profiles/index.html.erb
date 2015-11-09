@@ -10,7 +10,6 @@
       <th>Gender</th>
       <th>Designation</th>
       <th>D o b</th>
-      <th>Task</th>
       <th>User</th>
       <th colspan="3"></th>
     </tr>
@@ -24,7 +23,6 @@
         <td><%= profile.gender %></td>
         <td><%= profile.designation %></td>
         <td><%= profile.d_o_b %></td>
-        <td><%= profile.task_id %></td>
         <td><%= profile.user_id %></td>
         <td><%= link_to 'Show', profile %></td>
         <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
@@ -36,4 +34,5 @@
 
 <br>
 
-<%= link_to 'New Profile', new_profile_path %>
+<%= link_to 'New Profile', new_profile_path %> |
+<%= link_to 'Dashboard', dashboards_index_path %>

@@ -2,17 +2,18 @@
 
 <p>
   <strong>Title:</strong>
-  <%= @project.title %>
+  <%= link_to @project.title, projects_path %>
 </p>
-
+<div class="container">
 <p>
   <strong>Details</strong>
   <%= @project.details %>
 </p>
+</div>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<%= link_to 'Edit', edit_project_path(@project) %> | <%= link_to 'Back', projects_path %>
 
+<div class="container">
 <h3> Add task </h3>
 
 <%= form_for ([@project,@project.tasks.build]) do |f| %>
@@ -37,11 +38,13 @@
   
   <%= f.submit%>
 <% end %>
+</div>
 
-<% tasks = @project.tasks %>
+<div class="container">
+  <% tasks = @project.tasks %>
 <h3> Total tasks - <%= tasks.size %></h3>
 
-<% over_due_tasks = tasks.where('is_completed = ? AND due_date < ?', false, Date.today) %>
+  <% over_due_tasks = tasks.where('is_completed = ? AND due_date < ?', false, Date.today) %>
 <h3> Overdue tasks </h3>
 <ul>
   <% for task in over_due_tasks %>
@@ -49,7 +52,7 @@
   <% end %>
 </ul>
 
-<% incomplete_tasks = tasks.where('is_completed = ? AND due_date >= ?', false, Date.today) %>
+  <% incomplete_tasks = tasks.where('is_completed = ? AND due_date >= ?', false, Date.today) %>
 <h3> Incomplete tasks </h3>
 <ul>
   <% for task in incomplete_tasks %>
@@ -58,14 +61,17 @@
   <% end %>
 </ul>
 
-<% completed_tasks = tasks.where('is_completed = ?', true) %>
+  <% completed_tasks = tasks.where('is_completed = ?', true) %>
 <h3> Completed tasks </h3>
 <ul>
   <% for task in completed_tasks %>
   <li><%= task.name %> <small><%= time_ago_in_words(task.updated_at) %> 
   <%= task.updated_at < Time.now ? "ago" : "from now" %>
    </small>
-   <%= link_to "mark as incomplete", tasks_mark_as_incomplete_path(task_id: task.id) %></li>
+  <%= link_to "mark as incomplete", tasks_mark_as_incomplete_path(task_id: task.id) %></li>
   <% end %>
 </ul>
+</div>
+
+  <%= link_to 'Dashboard', dashboards_index_path %> |
 

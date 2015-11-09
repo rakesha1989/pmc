@@ -41,15 +41,13 @@ class TasksController < ApplicationController
   def mark_as_complete
     @task = Task.find(params[:task_id])
     @task.update_attributes(is_completed: true)
-    Notification.completed_task(@task).deliver!
     redirect_to :back
   end
 
   def mark_as_incomplete
     @task = Task.find(params[:task_id])
     @task.update_attributes(is_completed: false)
-    Notification.incompleted_task(@task).deliver!
-    redirect_to :back
+    redirect_to :back 
   end
 
   # PATCH/PUT /tasks/1

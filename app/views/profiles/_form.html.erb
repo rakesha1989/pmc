@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :gender %><br>
-    <%= f.text_field :gender %>
+    <%= f.select :gender, %w[Male Female] %>
   </div>
   <div class="field">
     <%= f.label :designation %><br>
@@ -31,13 +31,10 @@
     <%= f.label :d_o_b %><br>
     <%= f.date_select :d_o_b %>
   </div>
-  <div class="field">
-    <%= f.label :task_id %><br>
-    <%= f.number_field :task_id %>
-  </div>
+  
   <div class="field">
     <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
+    <%= f.collection_select :user_id, User.all, :id, :email, prompt: "Select user" %>
   </div>
   <div class="actions">
     <%= f.submit %>

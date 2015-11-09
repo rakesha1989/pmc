@@ -6,7 +6,11 @@ has_many :categories, through: :project_categories
 belongs_to :user
 belongs_to :client
 
-
+validates_presence_of :title, :location, :status, :start_date, :client_id, :description, :user_id
+validates_presence_of :start_date, message: "should be selected"
+validates_numericality_of :client_id, :user_id
+validates_uniqueness_of :title, scope_to: :client_id
+validate :check_start_date
 
 
 
