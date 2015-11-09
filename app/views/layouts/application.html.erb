@@ -8,6 +8,16 @@
 </head>
 <body>
 
+<div class="container">
+	
+	<% if user_signed_in? %>
+Welcome <%= current_user.name %>, <%= link_to "profile" %> | <%= link_to "Account Settings", edit_user_registration_path %> | <%= link_to "log out", destroy_user_session_path, method: :delete %>
+<%else%>
+<%= link_to "sign_in", new_user_session_path %>
+<%= link_to "log out", new_user_registration_path %>
+<% end %>
+</div>
+
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 
