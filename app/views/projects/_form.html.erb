@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :description %><br>
-    <%= f.text_field :description %>
+    <%= f.text_area :description, rows: 10, cols: 50 %>
   </div>
   <div class="field">
     <%= f.label :location %><br>
@@ -29,19 +29,19 @@
   </div>
   <div class="field">
     <%= f.label :status %><br>
-    <%= f.text_field :status %>
+    <%= f.select :status, %w[new on-going completed not-started] %>
   </div>
   <div class="field">
     <%= f.label :assigned_to %><br>
-    <%= f.text_field :assigned_to %>
+    <%= f.select :status, %w[Design Site-Inspection Quality Reports] %>
   </div>
   <div class="field">
     <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
+    <%= f.collection_select :user_id, User.all, :id, :email, prompt: "Select user" %>
   </div>
   <div class="field">
     <%= f.label :client_id %><br>
-    <%= f.number_field :client_id %>
+    <%= f.collection_select :client_id, Client.all, :id, :company, prompt: "Select Client" %>
   </div>
   <div class="actions">
     <%= f.submit %>
