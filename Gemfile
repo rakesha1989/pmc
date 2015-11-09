@@ -2,6 +2,8 @@ source 'https://rubygems.org'
 
 gem 'devise', '~> 3.5', '>= 3.5.2'
 
+gem 'cancan', '~> 1.6', '>= 1.6.10'
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
