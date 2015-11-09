@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: [:show, :edit, :update, :destroy]
-
+  before_action :find_record, only: [:show, :edit, :update, :destroy] 
   # GET /clients
   # GET /clients.json
   def index
@@ -25,6 +25,7 @@ class ClientsController < ApplicationController
   # POST /clients.json
   def create
     @client = Client.new(client_params)
+    @client.user_id = current_user.id
 
     respond_to do |format|
       if @client.save
@@ -63,9 +64,17 @@ class ClientsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_client
+  def set_client
       @client = Client.find(params[:id])
     end
+
+  def find_record
+  begin
+    @project = current_user.projects.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, notice: "Record Doesn't exist"
+  end
+end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params

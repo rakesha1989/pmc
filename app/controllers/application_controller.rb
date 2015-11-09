@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
   	devise_parameter_sanitizer.for(:sign_up) << :name
   	devise_parameter_sanitizer.for(:account_update) << :name
   end
+
+  rescue_from CanCan::AccessDenied do
+ 	redirect_to dashboard_index_path, notice: "you are not authorized to access this page"
+ end
 end
