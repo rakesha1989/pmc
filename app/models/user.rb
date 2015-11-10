@@ -18,8 +18,6 @@ def setup_user_role
 		if user.roles.empty?
 			user.roles << Role.third
 	end
-end 
-
-
-
+end
+ 
 end

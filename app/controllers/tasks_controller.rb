@@ -10,6 +10,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+  
   end
 
   # GET /tasks/new
@@ -29,7 +30,7 @@ class TasksController < ApplicationController
     respond_to do |format|
       if @task.save
         format.html { redirect_to project_path(@task.project_id), notice: 'Task was successfully created.' }
-        format.json { render :show, status: :created, location: @task.project_id }
+        format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }
         format.json { render json: @task.errors, status: :unprocessable_entity }
@@ -41,12 +42,14 @@ class TasksController < ApplicationController
   def mark_as_complete
     @task = Task.find(params[:task_id])
     @task.update_attributes(is_completed: true)
+    Notification.completed_task(@task).deliver!
     redirect_to :back
   end
 
   def mark_as_incomplete
     @task = Task.find(params[:task_id])
     @task.update_attributes(is_completed: false)
+    Notification.incompleted_task(@task).deliver!
     redirect_to :back 
   end
 
@@ -55,7 +58,7 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html { redirect_to project_path(@task.project_id), notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
