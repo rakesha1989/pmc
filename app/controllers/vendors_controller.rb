@@ -1,15 +1,17 @@
 class VendorsController < ApplicationController
   before_action :set_vendor, only: [:show, :edit, :update, :destroy]
-
+  before_action :find_record, only: [:show, :edit, :update, :destroy]
   # GET /vendors
   # GET /vendors.json
   def index
-    @vendors = Vendor.all
+    @vendors = (current_user.role? "admin") ? Vendor.all : current_user.vendors
   end
 
   # GET /vendors/1
   # GET /vendors/1.json
   def show
+      @vendor = (current_user.role? "admin") ? Vendor.find(params[:id]) : current_user.vendors.find(params[:id])
+
   end
 
   # GET /vendors/new
@@ -71,4 +73,12 @@ class VendorsController < ApplicationController
     def vendor_params
       params.require(:vendor).permit(:name, :company, :email, :web, :phone, :is_po_released, :user_id)
     end
+
+    def find_record
+  begin
+    @vendor = current_user.vendors.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, notice: "Record Doesn't exist"
+  end
+end
 end

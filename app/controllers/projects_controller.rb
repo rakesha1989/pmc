@@ -1,16 +1,20 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :find_project, only: [:show, :edit, :update, :destroy]
+  before_action :find_record, only: [:show, :edit, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
   def index
-    @projects = Project.all
+
+    @projects = (current_user.role? "admin") ? Project.all : current_user.projects
+    
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
+      @project = (current_user.role? "admin") ? Project.find(params[:id]) : current_user.projects.find(params[:id])
+
   end
 
   # GET /projects/new
@@ -74,7 +78,11 @@ class ProjectsController < ApplicationController
       params.require(:project).permit(:title, :description, :location, :start_date, :status, :assigned_to, :user_id, :client_id)
     end
 
-    def find_project
-      @project = Project.find(params[:id])
+    def find_record
+    begin
+      @project = current_user.projects.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to root_path, notice: "Record Doesn't exist"
     end
+  end
 end

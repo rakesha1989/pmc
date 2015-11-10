@@ -33,6 +33,6 @@
 </table>
 
 <br>
-
-<%= link_to 'New Client', new_client_path %> |
+<% if can? :create, Client.new %>
+<%= link_to 'New Client', new_client_path %> <% end %>|
 <%= link_to 'Dashboard', dashboards_index_path %>

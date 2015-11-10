@@ -30,5 +30,11 @@
   <%= @client.user_id %>
 </p>
 
-<%= link_to 'Edit', edit_client_path(@client) %> |
+<% if can? :update, @client %>
+  <%= link_to "Edit", edit_client_path %> <% end %>| 
+<% if can? :destroy, @client %>
+  <%= link_to "Delete", client_path(@client), method: :delete, data: {confirm: "Are you sure?"} %> 
+<% end %>
+
+
 <%= link_to 'Back', clients_path %>

@@ -73,5 +73,11 @@
 </ul>
 </div>
 
+<% if can? :update, @client %>
+  <%= link_to "Edit", edit_project_path %> <% end %>| 
+<% if can? :destroy, @client %>
+  <%= link_to "Delete", project_path(@project), method: :delete, data: {confirm: "Are you sure?"} %> 
+<% end %> |
+
   <%= link_to 'Dashboard', dashboards_index_path %> |
 

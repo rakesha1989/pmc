@@ -4,7 +4,8 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all
+    @clients = (current_user.role? "admin") ? Client.all : current_user.clients
+
   end
 
   # GET /clients/1
@@ -70,7 +71,7 @@ class ClientsController < ApplicationController
 
   def find_record
   begin
-    @project = current_user.projects.find(params[:id])
+    @client = current_user.clients.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path, notice: "Record Doesn't exist"
   end

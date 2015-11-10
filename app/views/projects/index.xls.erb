@@ -37,10 +37,3 @@
 </table>
 
 <br>
-
-<% if can? :create, Client.new %>
-<%= link_to 'New Project', new_project_path %> <% end %>|
-<%= link_to 'Dashboard', dashboards_index_path %> |<%= link_to "Export excel", projects_path(format: "xls") %>
-
-
-
