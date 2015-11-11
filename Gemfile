@@ -4,6 +4,8 @@ gem 'devise', '~> 3.5', '>= 3.5.2'
 
 gem 'cancan', '~> 1.6', '>= 1.6.10'
 
+gem 'chartkick', '~> 1.4', '>= 1.4.1'
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
