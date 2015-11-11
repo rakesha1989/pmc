@@ -8,6 +8,7 @@ has_many :clients
 has_many :projects
 has_many :vendors
 has_many :permissions
+<<<<<<< HEAD
 has_many :roles, through: :permissions 
 
 def role?(role)
@@ -20,6 +21,18 @@ def role?(role)
 		end
 	end
 
+=======
+has_many :roles, through: :permissions
+>>>>>>> mailers
 
+def role?(role)
+		self.roles.pluck(:name).include?(role)
+end
 
+def setup_user_role
+		if user.roles.empty?
+			user.roles << Role.third
+	end
+end
+ 
 end
